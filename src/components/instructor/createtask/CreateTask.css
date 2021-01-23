@@ -1,0 +1,18 @@
+.createtask-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.createtask-container > div {
+    width: 100vw;
+}
+
+.createtask-text {
+    text-align: left;
+}
+
+@media screen and (min-width: 480px) {
+    .createtask-container > div {
+        width: 50vw;
+    }
+}
