@@ -26,17 +26,15 @@ const Landing = (props) => {
             </div>
             <div className="landing-btn">
                 <label>Enter your name:</label><br/>
-                <input type="text" id="username"/>
+                <input type="text" id="username" placeholder="eg: Sayantan Roy"/>
                 <p>Are you an Instructor or a Student?</p>
-                <div className="instructor-btn">
-                    <input type="button" value="Instructor" onClick={() => handleRoute('instructor')}/>
-                </div>
-                <div className="student-btn">
-                    <input type="button" value="Student" onClick={() => handleRoute('student')}/>
+                <div className="instructor-student-btn">
+                    <button className="btn btn-warning m-1" onClick={() => handleRoute('instructor')}>Instructor</button>
+                    <button className="btn btn-warning m-1" onClick={() => handleRoute('student')}>Student</button>
                 </div>
                 <p>Check task scores below</p>
                 <div className="student-scores">
-                    <input type="button" value="Scores" onClick={() => handleRoute('scores')}/>
+                    <button className="btn btn-success" onClick={() => handleRoute('scores')}>Scores</button>
                 </div>
             </div>
         </Fragment>

@@ -1,0 +1,57 @@
+.landing-container {
+    margin: 5vw;
+}
+
+.landing-container h2{
+    color: blueviolet;
+    margin: 5vh;
+    font-size: 10vw;
+    font-weight: 650;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.landing-container p{
+    font-size: 5vw;
+    font-weight: 500;
+    font-style: italic;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.landing-btn {
+    margin: 10vw;
+    padding: 4vh 4vw;
+    border-radius: 25px;
+    box-shadow: 0px 0px 20px white;
+    width: fit-content;
+    display: inline-block;
+    background-color: black;
+    color: white;
+}
+
+.landing-btn label, .landing-btn p {
+    font-size: 5vw;
+    font-weight: 600;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.landing-btn > input {
+    width: 80%;
+    font-size: 3vw;
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0px 0px 25px white;
+    padding: 8px;
+    margin-bottom: 4vh;
+}
+
+.landing-btn > input:focus {
+    outline: none;
+    border: 5px solid  #f8b500;
+}
+
+.landing-btn button {
+    width: 30vw;
+    font-size: 3vw;
+    font-weight: 700;
+    font-family: 'Times New Roman', Times, serif;
+}
