@@ -15,7 +15,8 @@ const initState = {
             tasks: []
         }
     ],
-    id: 1
+    id: 1,
+    authObj: {}
 }
 
 const taskReducer = (state = initState, action) => {
@@ -31,6 +32,8 @@ const taskReducer = (state = initState, action) => {
         state.id += 1;
     } else if(action.type === 'UPDATE_TASK') {
         state.taskList = [...action.taskList]
+    } else if(action.type === 'ADD_USER') {
+        state.authObj = action.authObj;
     }
     console.log('State', state);
     return state;

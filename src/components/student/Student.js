@@ -8,15 +8,16 @@ class Student extends Component {
         this.state = {
             tasks: [],
             level: 'Beginner',
-            details: {}
+            studentName: ''
         };
     }
 
     componentDidMount() {
         this.unsubscribe = taskStore.subscribe(() => this.handleStateChange(taskStore)); //subscription to store
+        const token = taskStore.getState().authObj.token.split("-");
         this.setState({
             tasks: [...taskStore.getState().taskList],
-            details: this.props.location.state
+            studentName: token[0]
         });
     }
 
@@ -40,27 +41,24 @@ class Student extends Component {
         }
     }
 
-    handleUpdate = (id,studentname,uploadedsolution) => {
+    handleUpdate = (id,uploadedsolution) => {
         const taskList = this.state.tasks;
         if(this.state.level === 'Beginner') {
             for(let i=0;i<taskList[0].tasks.length;i++) {
                 if(taskList[0].tasks[i].id === id) {
-                    taskList[0].tasks[i].submissions.push({studentName: studentname, imageuri: uploadedsolution});
-                    taskList[0].tasks[i].isCompleted = true;
+                    taskList[0].tasks[i].submissions.push({studentName: this.state.studentName, imageuri: uploadedsolution, isChecked: false, score: null});
                 }
             }
         } else if(this.state.level === 'Intermediate') {
             for(let i=0;i<taskList[1].tasks.length;i++) {
                 if(taskList[1].tasks[i].id === id) {
-                    taskList[1].tasks[i].submissions.push({studentName: studentname, imageuri: uploadedsolution});
-                    taskList[1].tasks[i].isCompleted = true;
+                    taskList[1].tasks[i].submissions.push({studentName: this.state.studentName, imageuri: uploadedsolution, isChecked: false, score: null});
                 }
             }
         } else {
             for(let i=0;i<taskList[2].tasks.length;i++) {
                 if(taskList[2].tasks[i].id === id) {
-                    taskList[2].tasks[i].submissions.push({studentName: studentname, imageuri: uploadedsolution});
-                    taskList[2].tasks[i].isCompleted = true;
+                    taskList[2].tasks[i].submissions.push({studentName: this.state.studentName, imageuri: uploadedsolution, isChecked: false, score: null});
                 }
             }
         }
@@ -71,15 +69,14 @@ class Student extends Component {
     }
 
     handleSubmit = (id) => {
-        const studentname = document.getElementById("studentname"+id).value;
         let uploadedsolution = '';
         const file = document.getElementById("uploadsolution"+id).files[0];
-        if(studentname && file) {
+        if(file) {
             const reader = new FileReader();
             reader.onloadend = () => {
                 uploadedsolution = reader.result;
-                if(studentname && uploadedsolution) {
-                    this.handleUpdate(id,studentname,uploadedsolution);
+                if(uploadedsolution) {
+                    this.handleUpdate(id,uploadedsolution);
                 }
             };
             reader.readAsDataURL(file);
@@ -97,8 +94,19 @@ class Student extends Component {
                 taskList = [...this.state.tasks[2].tasks];
             }
             taskList.forEach(element => {
-                if(!element.isCompleted) {
+                if(element.submissions.length===0) {
                     displayTasks.push(element);
+                } else {
+                    let found = false;
+                    for(let i=0; i<element.submissions.length; i++) {
+                        if(element.submissions[i].studentName === this.state.studentName) {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if(!found) {
+                        displayTasks.push(element);
+                    }
                 }
             });
         }
@@ -119,8 +127,6 @@ class Student extends Component {
                             </div>
                             <div>
                                 <div>
-                                    <label>Name:</label><br/>
-                                    <div><input type="text" id={"studentname"+task.id}/></div>
                                     <label>Upload Edited Image:</label>
                                     <div>
                                         <input type="file" id={"uploadsolution"+task.id}/>

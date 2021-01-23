@@ -30,6 +30,40 @@ export default class CheckTask extends Component {
         });
     }
 
+    handleScore = (id,name) => {
+        const score = document.getElementById(name+id+"score").value;
+        let tasks = [];
+        if(this.state.level === 'Beginner') {
+            tasks = [...this.state.tasks[0].tasks];
+        } else if(this.state.level === 'Intermediate') {
+            tasks = [...this.state.tasks[1].tasks];
+        } else {
+            tasks = [...this.state.tasks[2].tasks];
+        }
+        tasks.forEach(task => {
+            if(task.id === id) {
+                task.submissions.forEach(sub => {
+                    if(sub.studentName === name) {
+                        sub.score = score;
+                        sub.isChecked = true;
+                    }
+                })
+            }
+        });
+        const taskList = this.state.tasks;
+        if(this.state.level === 'Beginner') {
+            taskList[0].tasks = [...tasks];
+        } else if(this.state.level === 'Intermediate') {
+            taskList[1].tasks = [...tasks];
+        } else {
+            taskList[2].tasks = [...tasks];
+        }
+        this.setState({
+            tasks: [...taskList]
+        });
+        taskStore.dispatch({type: 'UPDATE_TASK', taskList: taskList});
+    }
+
 
     render() {
         const displayTasks = [];
@@ -43,8 +77,17 @@ export default class CheckTask extends Component {
                 taskList = [...this.state.tasks[2].tasks];
             }
             taskList.forEach(element => {
-                if(element.isCompleted && !element.isChecked) {
-                    displayTasks.push(element);
+                if(element.submissions.length>0) {
+                    let found = false;
+                    for(let i=0; i<element.submissions.length; i++) {
+                        if(!element.submissions[i].isChecked) {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if(found) {
+                        displayTasks.push(element);
+                    }
                 }
             });
         }
@@ -56,18 +99,27 @@ export default class CheckTask extends Component {
                         <div key={task.id}>
                             <div><label>Task Id:</label><br/>{task.id}</div>
                             <div><label>Task Name:</label><br/>{task.taskname}</div>
-                            <div><label>Task Details:</label><br/>{task.instructions}</div>
-                            <div>Image download</div>
+                            <div><img src={task.imageuri} alt="Preview"/></div>
+                            <p>Submissions:</p>
                             <div>
-                                <div>
-                                    <label>Name:</label><br/>
-                                    {/* <div><input type="text" id={"studentname"+task.id}/></div> */}
-                                    <label>Upload Edited Image:</label>
-                                    <div>Image upload</div>
-                                </div>
-                            </div>
-                            <div>
-                                <input type="button" value="Submit Task" onClick={this.handleSubmit}/>
+                                {
+                                    task.submissions.map(sub => {
+                                        return (
+                                            <div key={sub.studentName+task.id}>
+                                                <div><label>Student Name:</label><br/>{sub.studentName}</div>
+                                                <div>
+                                                    <label>Submission Image:</label><br/>
+                                                    <a href={sub.imageuri} download={"Sub_"+sub.studentName+"_"+task.id+".jpg"}>
+                                                        <img src={task.imageuri} alt="Preview" width="128" height="96"/>
+                                                    </a>
+                                                </div>
+                                                <p>Scoring:</p>
+                                                <input type="number" min="0" max="10" step="1" defaultValue="0" id={sub.studentName+task.id+"score"}/><br/>
+                                                <input type="button" value="Submit Score" onClick={() => this.handleScore(task.id,sub.studentName)}/>
+                                            </div>
+                                        )
+                                    })
+                                }
                             </div>
                         </div>
                     );

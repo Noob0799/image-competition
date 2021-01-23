@@ -1,13 +1,21 @@
 import React, { Fragment } from 'react'
 import {withRouter} from 'react-router';
+import taskStore from '../../reducer/taskReducer';
+import './Landing.css';
 
 const Landing = (props) => {
     const handleRoute = (option) => {
         const name = document.getElementById("username").value;
-        if(option === 'instructor') {
-            props.history.push({pathname: '/instructor', state: {name,option}});
-        } else if(option === 'student') {
-            props.history.push({pathname: '/student', state: {name,option}});
+        if(option === 'scores') {
+            props.history.push('/scores');
+        } else if(name) {
+            const token = name+"-"+option;
+            taskStore.dispatch({type: 'ADD_USER', authObj: {name: name,option: option,token: token}});
+            if(option === 'instructor') {
+                props.history.push('/instructor');
+            } else if(option === 'student') {
+                props.history.push('/student');
+            }
         }
     }
     return (
@@ -25,6 +33,10 @@ const Landing = (props) => {
                 </div>
                 <div className="student-btn">
                     <input type="button" value="Student" onClick={() => handleRoute('student')}/>
+                </div>
+                <p>Check task scores below</p>
+                <div className="student-scores">
+                    <input type="button" value="Scores" onClick={() => handleRoute('scores')}/>
                 </div>
             </div>
         </Fragment>

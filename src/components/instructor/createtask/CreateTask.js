@@ -30,7 +30,7 @@ export default class CreateTask extends Component {
         const level = document.querySelector("#level").value;
         const instructions = document.querySelector('#instructions').value;
         if(taskname && level && instructions && this.state.image) {
-            taskStore.dispatch({type: 'ADD_TASK', taskObj: {id: taskStore.getState().id,taskname,level,instructions,imageuri: this.state.image, isCompleted: false, isChecked: false, submissions: []}});
+            taskStore.dispatch({type: 'ADD_TASK', taskObj: {id: taskStore.getState().id,taskname,level,instructions,imageuri: this.state.image, submissions: []}});
             this.reset();
         } 
     }
