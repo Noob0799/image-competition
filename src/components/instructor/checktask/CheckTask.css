@@ -1,0 +1,80 @@
+.checktask-display p {
+    font-size: 2vw;
+    font-style: italic;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+}
+
+
+.checktask-level label {
+    font-size: 4vw;
+    font-weight: 500;
+    font-style: italic;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.check-select-btn {
+    color: #FFC107;
+    font-weight: 500;
+    font-size: 2vw;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.checktask-header {
+    margin: 5vw 5vw 0 5vw;
+    color:  #FFC107;
+    background-color: black;
+    border-radius: 25px 25px 0 0;
+    padding: 4vh 2vw;
+}
+
+.checktask-img img, .checktask-sub-item img {
+    width: 16vw;
+    height: 12vw;
+    border: 2px solid  #FFC107;
+}
+
+.checktask-sub-container {
+    background-color: white;
+    margin: 0 5vw 2vh 5vw;
+    border-radius: 0 0 25px 25px;
+    padding: 4vh 2vw;
+}
+
+.checktask-sub-item {
+    margin: 2vh 0;
+    padding: 2vh 2vw;
+    display: flex;
+    align-items: center;
+    font-size: 2vw;
+    background-color: lightgray;
+    border-radius: 15px;
+}
+    
+
+.checktask-sub-item label {
+    font-size: 2vw;
+    font-weight: 500;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+.checktask-scoring {
+    width: 50%;
+    font-size: 3vw;
+    border: 2px solid black;
+    box-shadow: 0px 0px 5px white;
+    padding: 0 1vw;
+}
+
+.checktask-scoring:focus {
+    outline: none;
+}
+
+.submit-score-btn {
+    color: #FFC107;
+    font-weight: 600;
+    font-size: 2vw;
+    font-family: 'Times New Roman', Times, serif;
+    color: black;
+    width: 100%;
+}

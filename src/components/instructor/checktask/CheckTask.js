@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import taskStore from '../../../reducer/taskReducer';
+import './CheckTask.css';
+import Navbar from '../../utils/Navbar';
 
 export default class CheckTask extends Component {
     constructor(props) {
@@ -103,30 +105,39 @@ export default class CheckTask extends Component {
             elem = (
                 displayTasks.map(task => {
                     return (
-                        <div key={task.id}>
-                            <div><label>Task Id:</label><br/>{task.id}</div>
-                            <div><label>Task Name:</label><br/>{task.taskname}</div>
-                            <div><img src={task.imageuri} alt="Preview"/></div>
-                            <p>Submissions:</p>
-                            <div>
-                                {
-                                    task.submissions.map(sub => {
-                                        return (
-                                            <div key={sub.studentName+task.id}>
-                                                <div><label>Student Name:</label><br/>{sub.studentName}</div>
-                                                <div>
-                                                    <label>Submission Image:</label><br/>
-                                                    <a href={sub.imageuri} download={"Sub_"+sub.studentName+"_"+task.id+".jpg"}>
-                                                        <img src={task.imageuri} alt="Preview" width="128" height="96"/>
-                                                    </a>
-                                                </div>
-                                                <p>Scoring:</p>
-                                                <input type="number" min="0" max="10" step="1" defaultValue="0" id={sub.studentName+task.id+"score"}/><br/>
-                                                <input type="button" value="Submit Score" onClick={() => this.handleScore(task.id,sub.studentName)}/>
+                        <div key={task.id} className="checktask-container">
+                            <div className="checktask-header row">
+                                <div className="col-4">Task Id:<br/>{task.id}</div>
+                                <div className="col-4">Task Name:<br/>{task.taskname}</div>
+                                <div className="col-4 checktask-img"><img src={task.imageuri} alt="Preview"/></div>
+                            </div>
+                            <div className="checktask-sub-container">
+                            {
+                                task.submissions.map(sub => {
+                                    return (
+                                        <div key={sub.studentName+task.id} className="checktask-sub-item row">
+                                            <div className="col-3">
+                                                <label>Name:</label><br/>{sub.studentName}
                                             </div>
-                                        )
-                                    })
-                                }
+                                            <div className="col-3">
+                                                <label>Submission:</label><br/>
+                                                <a href={sub.imageuri} download={"Sub_"+sub.studentName+"_"+task.id+".jpg"}>
+                                                    <img src={task.imageuri} alt="Preview"/>
+                                                </a>
+                                            </div>
+                                            <div className="col-3">
+                                                <label>Scoring:</label><br/>
+                                                <input type="number" min="0" max="10" step="1" defaultValue="0" className="checktask-scoring" id={sub.studentName+task.id+"score"}/>
+                                            </div>
+                                            <div className="col-3">
+                                                <button className="btn btn-warning submit-score-btn" onClick={() => this.handleScore(task.id,sub.studentName)}>
+                                                    Submit Score
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            }
                             </div>
                         </div>
                     );
@@ -135,12 +146,10 @@ export default class CheckTask extends Component {
         }
         return (
             <Fragment>
-                <div>
-                    <input type="button" value="Back" onClick={() => this.handleRoute('home')}/>
-                </div>
+                <Navbar option="check"/>
                 <div className="checktask-level">
                     <label>Task Level:</label><br/>
-                    <select id="checklevel" onChange={(e) => this.handleLevelChange(e)}>
+                    <select id="checklevel" className="btn btn-dark check-select-btn" onChange={(e) => this.handleLevelChange(e)}>
                         <option value="Beginner">Beginner</option>
                         <option value="Intermediate">Intermediate</option>
                         <option value="Advanced">Advanced</option>

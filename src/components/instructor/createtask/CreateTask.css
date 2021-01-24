@@ -16,6 +16,12 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+.createtask-image p {
+    font-size: 2vw;
+    font-weight: 500;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 .capture-btn, .upload-btn, .set-task-btn, .select-btn{
     color: #FFC107;
     font-weight: 500;

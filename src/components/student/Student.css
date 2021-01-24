@@ -1,3 +1,9 @@
+.studenttask-display p {
+    font-size: 2vw;
+    font-style: italic;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+}
+
 .student-level label {
     font-size: 4vw;
     font-weight: 500;
@@ -31,6 +37,10 @@
 
 .student-tasks-instructions {
     overflow-wrap: break-word;
+}
+
+.student-tasks-sub {
+    overflow: auto;
 }
 
 .student-tasks-sub input {

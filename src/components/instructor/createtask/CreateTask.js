@@ -26,6 +26,21 @@ export default class CreateTask extends Component {
         });
     }
 
+    getUploadedTaskImage = () => {
+        let uploadedsolution = '';
+        const file = document.getElementById("uploadtask").files[0];
+        if(file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                uploadedsolution = reader.result;
+                this.setState({
+                    image: uploadedsolution
+                });
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
     setTask = () => {
         const taskname = document.querySelector("#taskname").value;
         const level = document.querySelector("#level").value;
@@ -33,13 +48,14 @@ export default class CreateTask extends Component {
         if(taskname && level && instructions && this.state.image) {
             taskStore.dispatch({type: 'ADD_TASK', taskObj: {id: taskStore.getState().id,taskname,level,instructions,imageuri: this.state.image, submissions: []}});
             this.reset();
-        } 
+        }
     }
 
     reset = () => {
         document.querySelector("#taskname").value = '';
         document.querySelector("#level").value = 'Beginner';
         document.querySelector('#instructions').value = '';
+        document.querySelector('#uploadtask').value = '';
         this.setState({
             capture: false,
             image: ''
@@ -55,14 +71,10 @@ export default class CreateTask extends Component {
                     <div className="createtask-image">
                         <label>Click to capture task</label><br/>
                         <input type="button" className="btn btn-dark capture-btn" value={!this.state.capture ? "Capture" : "Close"} onClick={this.handleCapture}/>
+                        <div className="createtask-imagecapture" hidden={!this.state.capture}>
+                            <ImageCapture image={this.handleImage}/>
+                        </div>
                         {
-                            this.state.capture ? 
-                            (
-                                <div className="createtask-imagecapture">
-                                    <ImageCapture image={this.handleImage}/>
-                                </div>
-                            ) : 
-                            (
                                 this.state.image ? 
                                 (
                                     <div className="createtask-imagepreview">
@@ -70,14 +82,13 @@ export default class CreateTask extends Component {
                                     </div>
                                 ) :
                                 (
-                                    <div className="createtask-imageupload">
-                                        <label>Click to upload task</label><br/>
-                                        <input type="file" className="btn btn-dark upload-btn" id="uploadtask"/>
-                                    </div>
+                                    <p>Image previewed here...</p>
                                 )
-                            )
-
                         }
+                        <div className="createtask-imageupload">
+                            <label>Click to upload task</label><br/>
+                            <input type="file" className="btn btn-dark upload-btn" id="uploadtask" onChange={this.getUploadedTaskImage}/>
+                        </div>
                     </div>
                     <div className="createtask-text">
                         <div className="createtask-level">
