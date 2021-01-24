@@ -1,0 +1,54 @@
+.student-level label {
+    font-size: 4vw;
+    font-weight: 500;
+    font-style: italic;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.student-select-btn {
+    color: #FFC107;
+    font-weight: 500;
+    font-size: 2vw;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.student-tasks-container {
+    margin: 5vw;
+    color:  #FFC107;
+    background-color: black;
+    border-radius: 25px;
+    padding: 2vh 2vw;
+}
+
+.student-tasks, .student-tasks-btn {
+    padding: 3vw;
+}
+
+.student-tasks-name, .student-tasks-instructions {
+    font-size: 3vw;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.student-tasks-instructions {
+    overflow-wrap: break-word;
+}
+
+.student-tasks-sub input {
+    color: #FFC107;
+    font-weight: 500;
+    font-size: 3vw;
+}
+
+.submit-task-btn {
+    color: #FFC107;
+    font-weight: 600;
+    font-size: 2vw;
+    font-family: 'Times New Roman', Times, serif;
+    color: black;
+}
+
+.student-tasks-img img {
+    width: 16vw;
+    height: 12vw;
+    border: 2px solid  #FFC107;
+}

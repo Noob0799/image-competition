@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import {withRouter} from 'react-router';
 import taskStore from '../../reducer/taskReducer';
+import Navbar from '../utils/Navbar';
+import './Student.css';
 
 class Student extends Component {
     constructor(props) {
@@ -115,26 +117,23 @@ class Student extends Component {
             elem = (
                 displayTasks.map(task => {
                     return (
-                        <div key={task.id}>
-                            <div><label>Task Id:</label><br/>{task.id}</div>
-                            <div><label>Task Name:</label><br/>{task.taskname}</div>
-                            <div><label>Task Details:</label><br/>{task.instructions}</div>
-                            <div>
-                                <label>Task Image:</label><br/>
-                                <a href={task.imageuri} download={"Task_"+task.level+"_"+task.id+".jpg"}>
-                                    <img src={task.imageuri} alt="Preview" width="128" height="96"/>
-                                </a>
-                            </div>
-                            <div>
-                                <div>
-                                    <label>Upload Edited Image:</label>
-                                    <div>
-                                        <input type="file" id={"uploadsolution"+task.id}/>
-                                    </div>
+                        <div className="student-tasks-container" key={task.id}>
+                            <div className="student-tasks row">
+                                <div className="student-tasks-name col-4">Task Name:<br/> {task.taskname}</div>
+                                <div className="student-tasks-instructions col-4"> Task Instructions:<br/> {task.instructions}</div>
+                                <div className="student-tasks-img col-4">
+                                    <a href={task.imageuri} download={"Task_"+task.level+"_"+task.id+".jpg"}>
+                                        <img src={task.imageuri} alt="Preview"/>
+                                    </a>
                                 </div>
                             </div>
-                            <div>
-                                <input type="button" value="Submit Task" onClick={() => this.handleSubmit(task.id)}/>
+                            <div className="student-tasks-btn row">
+                                <div className="student-tasks-sub col-6">
+                                    <input type="file" id={"uploadsolution"+task.id}/>
+                                </div>
+                                <div className="col-6">
+                                    <input type="button" value="Submit Task" className="btn btn-warning submit-task-btn" onClick={() => this.handleSubmit(task.id)}/>
+                                </div>
                             </div>
                         </div>
                     );
@@ -143,12 +142,10 @@ class Student extends Component {
         }
         return (
             <Fragment>
-                <div>
-                    <input type="button" value="Back" onClick={() => this.handleRoute('home')}/>
-                </div>
+                <Navbar option="student"/>
                 <div className="student-level">
                     <label>Task Level:</label><br/>
-                    <select id="studentlevel" onChange={(e) => this.handleLevelChange(e)}>
+                    <select id="studentlevel" className="btn btn-dark student-select-btn" onChange={(e) => this.handleLevelChange(e)}>
                         <option value="Beginner">Beginner</option>
                         <option value="Intermediate">Intermediate</option>
                         <option value="Advanced">Advanced</option>

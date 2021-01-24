@@ -11,7 +11,7 @@ const Navbar = (props) => {
         heading = "Set Task";
     } else if(props.option === 'check') {
         heading = "Check Task";
-    } else if(props.option === 'submit') {
+    } else if(props.option === 'student') {
         heading = "Submit Task";
     } else if(props.option === 'score') {
         heading = "Task Scores";
