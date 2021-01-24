@@ -33,9 +33,6 @@
 .student-tasks-name, .student-tasks-instructions {
     font-size: 3vw;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.student-tasks-instructions {
     overflow-wrap: break-word;
 }
 

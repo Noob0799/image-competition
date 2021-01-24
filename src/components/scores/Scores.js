@@ -1,29 +1,35 @@
 import React, { Fragment } from 'react'
 import taskStore from '../../reducer/taskReducer';
+import './Scores.css';
+import Navbar from '../utils/Navbar';
 
 const Scores = (props) => {
     const taskList = [...taskStore.getState().taskList];
     const beginnersTask = [...taskList[0].tasks];
     const intermediateTask = [...taskList[1].tasks];
     const advancedTask = [...taskList[2].tasks];
-    const showScores = (taskArr) => {
+    const showScores = (taskArr,level) => {
         if(taskArr.length > 0) {
             return (
                 taskArr.map(task => {
                     return (
-                        <div key={task.id}>
-                            <p>Task Name: {task.taskname}</p>
-                            <p>Submissions:</p>
+                        <div key={task.id} className="scores-container row">
+                            <div className="col-6 scores-task">
+                                <label>Task Id: {task.id}</label>
+                                <label>Task Name: {task.taskname}</label>
+                            </div>
+                            <div className="col-6">
                             {
                                 task.submissions.map(sub => {
                                     return (
-                                        <div key={task.id+sub.studentName}>
-                                            <p>Student Name: {sub.studentName}</p>
-                                            <p>Marks out of 10: {sub.score ? sub.score : 'NA'}</p>
+                                        <div key={task.id+sub.studentName} className="scores-student my-1">
+                                            <div>Student Name: {sub.studentName}</div>
+                                            <div>Marks out of 10: {sub.score ? sub.score : 'NA'}</div>
                                         </div>
                                     )
                                 })
                             }
+                            </div>
                         </div>
                     )
                 })
@@ -34,22 +40,36 @@ const Scores = (props) => {
             );
         }
     }
-    const handleRoute = (option) => {
-        if(option === 'home') {
-            props.history.push('/');
-        }
-    }
     return (
         <Fragment>
-            <div>
-                <input type="button" value="Back" onClick={() => handleRoute('home')}/>
-            </div>
-            <p>Beginners</p>
-            {showScores(beginnersTask)}
-            <p>Intermediate</p>
-            {showScores(intermediateTask)}
-            <p>Advanced</p>
-            {showScores(advancedTask)}
+            <Navbar option="score"/>
+            {
+                beginnersTask.length > 0 ? 
+                (
+                    <div className="beginner">
+                        <p>Level: Beginner</p>
+                        {showScores(beginnersTask,'Beginner')}
+                    </div>
+                ) : null
+            }
+            {
+                intermediateTask.length > 0 ?
+                (
+                    <div className="intermediate">
+                        <p>Level: Intermediate</p>
+                        {showScores(intermediateTask,'Intermediate')}
+                    </div>
+                ) : null
+            }
+            {
+                advancedTask.length > 0 ?
+                (
+                    <div className="advanced">
+                        <p>Level: Advanced</p>
+                        {showScores(advancedTask,'Advanced')}
+                    </div>
+                ) : null
+            }
         </Fragment>
     )
 }

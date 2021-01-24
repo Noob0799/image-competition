@@ -1,0 +1,36 @@
+.scores-container {
+    background-color: black;
+    color: #FFC107;
+    margin: 2vh 5vw 2vh 5vw;
+    padding: 2vh 1vw;
+    border-radius: 25px;
+}
+
+.scores-task {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.scores-task label {
+    font-size: 3vw;
+    font-weight: 500;
+    font-family: 'Times New Roman', Times, serif;
+    overflow-wrap: break-word;
+}
+
+.scores-student div {
+    font-size: 3vw;
+    font-weight: 500;
+    font-family: 'Times New Roman', Times, serif;
+    overflow-wrap: break-word;
+}
+
+.beginner > p, .intermediate > p, .advanced > p {
+    font-size: 6vw;
+    font-weight: 700;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: left;
+    margin: 0 5vw;
+}

@@ -64,12 +64,7 @@ export default class CheckTask extends Component {
             tasks: [...taskList]
         });
         taskStore.dispatch({type: 'UPDATE_TASK', taskList: taskList});
-    }
-
-    handleRoute = (option) => {
-        if(option === 'home') {
-            this.props.history.push('/');
-        }
+        document.getElementById("check-submit"+id+name).disabled = true;
     }
 
 
@@ -116,13 +111,13 @@ export default class CheckTask extends Component {
                                 task.submissions.map(sub => {
                                     return (
                                         <div key={sub.studentName+task.id} className="checktask-sub-item row">
-                                            <div className="col-3">
+                                            <div className="checktask-sub-item-name col-3">
                                                 <label>Name:</label><br/>{sub.studentName}
                                             </div>
                                             <div className="col-3">
                                                 <label>Submission:</label><br/>
                                                 <a href={sub.imageuri} download={"Sub_"+sub.studentName+"_"+task.id+".jpg"}>
-                                                    <img src={task.imageuri} alt="Preview"/>
+                                                    <img src={sub.imageuri} alt="Preview"/>
                                                 </a>
                                             </div>
                                             <div className="col-3">
@@ -130,7 +125,7 @@ export default class CheckTask extends Component {
                                                 <input type="number" min="0" max="10" step="1" defaultValue="0" className="checktask-scoring" id={sub.studentName+task.id+"score"}/>
                                             </div>
                                             <div className="col-3">
-                                                <button className="btn btn-warning submit-score-btn" onClick={() => this.handleScore(task.id,sub.studentName)}>
+                                                <button id={"check-submit"+task.id+sub.studentName} className="btn btn-warning submit-score-btn" onClick={() => this.handleScore(task.id,sub.studentName)}>
                                                     Submit Score
                                                 </button>
                                             </div>
