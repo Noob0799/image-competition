@@ -27,6 +27,13 @@
     padding: 4vh 2vw;
 }
 
+.checktask-header > div {
+    font-size: 2vw;
+    font-weight: 500;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
 .checktask-img img, .checktask-sub-item img {
     width: 16vw;
     height: 12vw;
@@ -81,4 +88,11 @@
     font-family: 'Times New Roman', Times, serif;
     color: black;
     width: 100%;
+}
+
+.route-back {
+    font-size: 2vw;
+    font-weight: 500;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-style: italic;
 }

@@ -9,8 +9,15 @@ export default class CreateTask extends Component {
         super(props);
         this.state = {
             capture: false,
-            image: ''
+            image: '',
+            token: null
         };
+    }
+
+    componentDidMount() {
+        this.setState({
+            token: taskStore.getState().authObj.token
+        });
     }
 
     handleCapture = () => {
@@ -67,56 +74,66 @@ export default class CreateTask extends Component {
         return (
             <Fragment>
                 <Navbar option="set"/>
-                <div className="createtask-container">
-                    <div className="createtask-image">
-                        <label>Click to capture task</label><br/>
-                        <input type="button" className="btn btn-dark capture-btn" value={!this.state.capture ? "Capture" : "Close"} onClick={this.handleCapture}/>
-                        {
-                            this.state.capture ? 
-                            (
-                                <div className="createtask-imagecapture">
-                                    <ImageCapture image={this.handleImage}/>
-                                </div>
-                            ) : null
-                        }
-                        {
-                                this.state.image ? 
-                                (
-                                    <div className="createtask-imagepreview">
-                                        <img src={this.state.image} alt="Preview"/>
+                {
+                    this.state.token ? 
+                    (
+                        <Fragment>
+                            <div className="createtask-container">
+                                <div className="createtask-image">
+                                    <label>Click to capture task</label><br/>
+                                    <input type="button" className="btn btn-dark capture-btn" value={!this.state.capture ? "Capture" : "Close"} onClick={this.handleCapture}/>
+                                    {
+                                        this.state.capture ? 
+                                        (
+                                            <div className="createtask-imagecapture">
+                                                <ImageCapture image={this.handleImage}/>
+                                            </div>
+                                        ) : null
+                                    }
+                                    {
+                                            this.state.image ? 
+                                            (
+                                                <div className="createtask-imagepreview">
+                                                    <img src={this.state.image} alt="Preview"/>
+                                                </div>
+                                            ) :
+                                            (
+                                                <p>Image previewed here...</p>
+                                            )
+                                    }
+                                    <div className="createtask-imageupload">
+                                        <label>Click to upload task</label><br/>
+                                        <input type="file" className="btn btn-dark upload-btn" id="uploadtask" onChange={this.getUploadedTaskImage}/>
                                     </div>
-                                ) :
-                                (
-                                    <p>Image previewed here...</p>
-                                )
-                        }
-                        <div className="createtask-imageupload">
-                            <label>Click to upload task</label><br/>
-                            <input type="file" className="btn btn-dark upload-btn" id="uploadtask" onChange={this.getUploadedTaskImage}/>
-                        </div>
-                    </div>
-                    <div className="createtask-text">
-                        <div className="createtask-level">
-                            <label>Task Level:</label><br/>
-                            <select id="level" className="btn btn-dark select-btn">
-                                <option value="Beginner">Beginner</option>
-                                <option value="Intermediate">Intermediate</option>
-                                <option value="Advanced">Advanced</option>
-                            </select>
-                        </div>
-                        <div className="createtask-instructions">
-                            <label>Task Name:</label><br/>
-                            <input type="text" id="taskname"/>
-                        </div>
-                        <div className="createtask-instructions">
-                            <label>Task Instructions:</label><br/>
-                            <textarea id="instructions" rows="4"/>
-                        </div>
-                    </div>
-                </div>
-                <div className="createtask-submit">
-                    <input type="button" value="Set Task" className="btn btn-dark set-task-btn" onClick={this.setTask}/>
-                </div>
+                                </div>
+                                <div className="createtask-text">
+                                    <div className="createtask-level">
+                                        <label>Task Level:</label><br/>
+                                        <select id="level" className="btn btn-dark select-btn">
+                                            <option value="Beginner">Beginner</option>
+                                            <option value="Intermediate">Intermediate</option>
+                                            <option value="Advanced">Advanced</option>
+                                        </select>
+                                    </div>
+                                    <div className="createtask-instructions">
+                                        <label>Task Name:</label><br/>
+                                        <input type="text" id="taskname"/>
+                                    </div>
+                                    <div className="createtask-instructions">
+                                        <label>Task Instructions:</label><br/>
+                                        <textarea id="instructions" rows="4"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="createtask-submit">
+                                <input type="button" value="Set Task" className="btn btn-dark set-task-btn" onClick={this.setTask}/>
+                            </div>
+                        </Fragment>
+                    ) : 
+                    (
+                        <p className="route-back">Route back to Landing page and enter again...</p>
+                    )
+                }
             </Fragment>
         )
     }

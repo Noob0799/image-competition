@@ -10,16 +10,22 @@ class Student extends Component {
         this.state = {
             tasks: [],
             level: 'Beginner',
-            studentName: ''
+            studentName: '',
+            token: null
         };
     }
 
     componentDidMount() {
         this.unsubscribe = taskStore.subscribe(() => this.handleStateChange(taskStore)); //subscription to store
-        const token = taskStore.getState().authObj.token.split("-");
+        const token = taskStore.getState().authObj.token;
+        let tokensplit = '';
+        if(token) {
+            tokensplit = token.split("-");
+        }
         this.setState({
             tasks: [...taskStore.getState().taskList],
-            studentName: token[0]
+            studentName: tokensplit[0],
+            token: token
         });
     }
 
@@ -143,17 +149,27 @@ class Student extends Component {
         return (
             <Fragment>
                 <Navbar option="student"/>
-                <div className="student-level">
-                    <label>Task Level:</label><br/>
-                    <select id="studentlevel" className="btn btn-dark student-select-btn" onChange={(e) => this.handleLevelChange(e)}>
-                        <option value="Beginner">Beginner</option>
-                        <option value="Intermediate">Intermediate</option>
-                        <option value="Advanced">Advanced</option>
-                    </select>
-                </div>
-                <div className="studenttask-display">
-                    {elem}
-                </div>
+                {
+                    this.state.token ?
+                    (
+                        <Fragment>
+                            <div className="student-level">
+                                <label>Task Level:</label><br/>
+                                <select id="studentlevel" className="btn btn-dark student-select-btn" onChange={(e) => this.handleLevelChange(e)}>
+                                    <option value="Beginner">Beginner</option>
+                                    <option value="Intermediate">Intermediate</option>
+                                    <option value="Advanced">Advanced</option>
+                                </select>
+                            </div>
+                            <div className="studenttask-display">
+                                {elem}
+                            </div>
+                        </Fragment>
+                    ) :
+                    (
+                        <p className="route-back">Route back to Landing page and enter again...</p>
+                    )
+                }
             </Fragment>
         )
     }

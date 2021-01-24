@@ -8,14 +8,16 @@ export default class CheckTask extends Component {
         super(props);
         this.state = {
             tasks: [],
-            level: 'Beginner'
+            level: 'Beginner',
+            token: null
         };
     }
 
     componentDidMount() {
         this.unsubscribe = taskStore.subscribe(() => this.handleStateChange(taskStore)); //subscription to store
         this.setState({
-            tasks: [...taskStore.getState().taskList]
+            tasks: [...taskStore.getState().taskList],
+            token: taskStore.getState().authObj.token
         });
     }
 
@@ -144,17 +146,27 @@ export default class CheckTask extends Component {
         return (
             <Fragment>
                 <Navbar option="check"/>
-                <div className="checktask-level">
-                    <label>Task Level:</label><br/>
-                    <select id="checklevel" className="btn btn-dark check-select-btn" onChange={(e) => this.handleLevelChange(e)}>
-                        <option value="Beginner">Beginner</option>
-                        <option value="Intermediate">Intermediate</option>
-                        <option value="Advanced">Advanced</option>
-                    </select>
-                </div>
-                <div className="checktask-display">
-                    {elem}
-                </div>
+                {
+                    this.state.token ? 
+                    (
+                        <Fragment>
+                            <div className="checktask-level">
+                                <label>Task Level:</label><br/>
+                                <select id="checklevel" className="btn btn-dark check-select-btn" onChange={(e) => this.handleLevelChange(e)}>
+                                    <option value="Beginner">Beginner</option>
+                                    <option value="Intermediate">Intermediate</option>
+                                    <option value="Advanced">Advanced</option>
+                                </select>
+                            </div>
+                            <div className="checktask-display">
+                                {elem}
+                            </div>
+                        </Fragment>
+                    ) : 
+                    (
+                        <p className="route-back">Route back to Landing page and enter again...</p>
+                    )
+                }
             </Fragment>
         )
     }
