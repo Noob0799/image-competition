@@ -64,6 +64,13 @@ export default class CheckTask extends Component {
         taskStore.dispatch({type: 'UPDATE_TASK', taskList: taskList});
     }
 
+    handleRoute = (option) => {
+        if(option === 'home') {
+            this.props.history.push('/');
+        }
+    }
+
+
 
     render() {
         const displayTasks = [];
@@ -128,6 +135,9 @@ export default class CheckTask extends Component {
         }
         return (
             <Fragment>
+                <div>
+                    <input type="button" value="Back" onClick={() => this.handleRoute('home')}/>
+                </div>
                 <div className="checktask-level">
                     <label>Task Level:</label><br/>
                     <select id="checklevel" onChange={(e) => this.handleLevelChange(e)}>

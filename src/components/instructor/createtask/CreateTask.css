@@ -1,18 +1,62 @@
 .createtask-container {
     display: flex;
     flex-wrap: wrap;
+    margin: 3vw;
 }
 
 .createtask-container > div {
     width: 100vw;
+    margin-top: 2vh;
 }
 
-.createtask-text {
-    text-align: left;
+.createtask-image label, .createtask-imageupload label, .createtask-text label {
+    font-size: 4vw;
+    font-weight: 500;
+    font-style: italic;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.capture-btn, .upload-btn, .set-task-btn, .select-btn{
+    color: #FFC107;
+    font-weight: 500;
+    font-size: 2vw;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.select-btn ::after {
+    color: #FFC107;
+}
+
+.createtask-text input, .createtask-text textarea {
+    width: 80%;
+    font-size: 3vw;
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0px 0px 5px white;
+    padding: 8px;
+}
+
+.createtask-text input:focus, .createtask-text textarea:focus {
+    outline: none;
+}
+
+.createtask-submit {
+    margin-bottom: 4vh;
+}
+
+.createtask-imagecapture {
+    padding: 2vw;
+}
+
+.createtask-imagepreview img {
+    margin-top: 2vw;
+    width: 32vw;
+    height: 24vw;
+    border: 2px solid black;
 }
 
 @media screen and (min-width: 480px) {
     .createtask-container > div {
-        width: 50vw;
+        width: 45vw;
     }
 }

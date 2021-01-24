@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import ImageCapture from './ImageCapture'
 import './CreateTask.css';
 import taskStore from '../../../reducer/taskReducer';
+import Navbar from '../../utils/Navbar';
 
 export default class CreateTask extends Component {
     constructor(props) {
@@ -14,7 +15,7 @@ export default class CreateTask extends Component {
 
     handleCapture = () => {
         this.setState({
-            capture: true
+            capture: !this.state.capture
         });
     }
 
@@ -45,12 +46,15 @@ export default class CreateTask extends Component {
         });
     }
 
+
     render() {
         return (
             <Fragment>
+                <Navbar option="set"/>
                 <div className="createtask-container">
                     <div className="createtask-image">
-                        <input type="button" value="Capture" onClick={this.handleCapture}/>
+                        <label>Click to capture task</label><br/>
+                        <input type="button" className="btn btn-dark capture-btn" value={!this.state.capture ? "Capture" : "Close"} onClick={this.handleCapture}/>
                         {
                             this.state.capture ? 
                             (
@@ -62,12 +66,13 @@ export default class CreateTask extends Component {
                                 this.state.image ? 
                                 (
                                     <div className="createtask-imagepreview">
-                                        <img src={this.state.image} alt="Preview" width="320" height="240"/>
+                                        <img src={this.state.image} alt="Preview"/>
                                     </div>
                                 ) :
                                 (
                                     <div className="createtask-imageupload">
-                                        <input type="file" id="uploadtask"/>
+                                        <label>Click to upload task</label><br/>
+                                        <input type="file" className="btn btn-dark upload-btn" id="uploadtask"/>
                                     </div>
                                 )
                             )
@@ -77,7 +82,7 @@ export default class CreateTask extends Component {
                     <div className="createtask-text">
                         <div className="createtask-level">
                             <label>Task Level:</label><br/>
-                            <select id="level">
+                            <select id="level" className="btn btn-dark select-btn">
                                 <option value="Beginner">Beginner</option>
                                 <option value="Intermediate">Intermediate</option>
                                 <option value="Advanced">Advanced</option>
@@ -94,7 +99,7 @@ export default class CreateTask extends Component {
                     </div>
                 </div>
                 <div className="createtask-submit">
-                    <input type="button" value="Set Task" onClick={this.setTask}/>
+                    <input type="button" value="Set Task" className="btn btn-dark set-task-btn" onClick={this.setTask}/>
                 </div>
             </Fragment>
         )
