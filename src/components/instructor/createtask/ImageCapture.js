@@ -20,7 +20,7 @@ const ImageCapture = (props) => {
       imageType = {IMAGE_TYPES.JPG}
       imageCompression = {0.97}
       isMaxResolution = {true}
-      isImageMirror = {true}
+      isImageMirror = {false}
       isSilentMode = {false}
       isDisplayStartCameraError = {true}
       isFullscreen = {false}

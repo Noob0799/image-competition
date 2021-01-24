@@ -71,9 +71,14 @@ export default class CreateTask extends Component {
                     <div className="createtask-image">
                         <label>Click to capture task</label><br/>
                         <input type="button" className="btn btn-dark capture-btn" value={!this.state.capture ? "Capture" : "Close"} onClick={this.handleCapture}/>
-                        <div className="createtask-imagecapture" hidden={!this.state.capture}>
-                            <ImageCapture image={this.handleImage}/>
-                        </div>
+                        {
+                            this.state.capture ? 
+                            (
+                                <div className="createtask-imagecapture">
+                                    <ImageCapture image={this.handleImage}/>
+                                </div>
+                            ) : null
+                        }
                         {
                                 this.state.image ? 
                                 (

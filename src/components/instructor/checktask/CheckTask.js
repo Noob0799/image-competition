@@ -34,37 +34,39 @@ export default class CheckTask extends Component {
 
     handleScore = (id,name) => {
         const score = document.getElementById(name+id+"score").value;
-        let tasks = [];
-        if(this.state.level === 'Beginner') {
-            tasks = [...this.state.tasks[0].tasks];
-        } else if(this.state.level === 'Intermediate') {
-            tasks = [...this.state.tasks[1].tasks];
-        } else {
-            tasks = [...this.state.tasks[2].tasks];
-        }
-        tasks.forEach(task => {
-            if(task.id === id) {
-                task.submissions.forEach(sub => {
-                    if(sub.studentName === name) {
-                        sub.score = score;
-                        sub.isChecked = true;
-                    }
-                })
+        if(score>=0 && score<=10) {
+            let tasks = [];
+            if(this.state.level === 'Beginner') {
+                tasks = [...this.state.tasks[0].tasks];
+            } else if(this.state.level === 'Intermediate') {
+                tasks = [...this.state.tasks[1].tasks];
+            } else {
+                tasks = [...this.state.tasks[2].tasks];
             }
-        });
-        const taskList = this.state.tasks;
-        if(this.state.level === 'Beginner') {
-            taskList[0].tasks = [...tasks];
-        } else if(this.state.level === 'Intermediate') {
-            taskList[1].tasks = [...tasks];
-        } else {
-            taskList[2].tasks = [...tasks];
+            tasks.forEach(task => {
+                if(task.id === id) {
+                    task.submissions.forEach(sub => {
+                        if(sub.studentName === name) {
+                            sub.score = score;
+                            sub.isChecked = true;
+                        }
+                    })
+                }
+            });
+            const taskList = this.state.tasks;
+            if(this.state.level === 'Beginner') {
+                taskList[0].tasks = [...tasks];
+            } else if(this.state.level === 'Intermediate') {
+                taskList[1].tasks = [...tasks];
+            } else {
+                taskList[2].tasks = [...tasks];
+            }
+            this.setState({
+                tasks: [...taskList]
+            });
+            taskStore.dispatch({type: 'UPDATE_TASK', taskList: taskList});
+            document.getElementById("check-submit"+id+name).disabled = true;
         }
-        this.setState({
-            tasks: [...taskList]
-        });
-        taskStore.dispatch({type: 'UPDATE_TASK', taskList: taskList});
-        document.getElementById("check-submit"+id+name).disabled = true;
     }
 
 
